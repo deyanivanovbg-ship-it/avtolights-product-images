@@ -21,7 +21,11 @@
   input.addEventListener('input', function () {
     var q = input.value.trim().toLowerCase().split(/\s+/).filter(Boolean).map(norm);
     if (!q.length) { res.style.display = 'none'; return; }
-    var hits = D.filter(function (d) { var t = norm(d[1]); return q.every(function (w) { return t.indexOf(w) !== -1; }); }).slice(0, 20);
+    // всяка дума от търсенето трябва да е част от една дума в името - иначе "4f" намира "W204 Facelift"
+    var hits = D.filter(function (d) {
+      var words = d[1].toLowerCase().split(/[\s\/(),]+/).map(norm);
+      return q.every(function (w) { return words.some(function (t) { return t.indexOf(w) !== -1; }); });
+    }).slice(0, 20);
     res.innerHTML = hits.length ? hits.map(function (d) {
       return '<a href="/store/' + d[0] + '"><img loading="lazy" src="' + IMG + d[3] + '" alt=""><span>' + d[1] + '</span><span class="al-p">от ' + d[2] + ' €</span></a>';
     }).join('') : '<div class="al-none">Няма такъв модел в магазина. Пишете ни във Viber на 0878 775 324 - ще проверим при доставчиците.</div>';

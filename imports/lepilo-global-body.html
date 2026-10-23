@@ -19,6 +19,8 @@
     setTimeout(fixCheckout, 4000);
     var id = PAGES[location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase()];
     if (!id || document.getElementById(id + '-live')) return;
+    // страницата вече е поставена с елемент Code в самата стъпка → не я дублирай
+    if (document.getElementById(id === 'al-lep-landing' ? 'al-lep' : 'al-thx')) return;
     var box = document.createElement('div');
     box.id = id + '-live';
     box.appendChild(document.getElementById(id).content.cloneNode(true));

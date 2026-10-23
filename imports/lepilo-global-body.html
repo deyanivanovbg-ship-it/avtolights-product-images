@@ -1,0 +1,433 @@
+<template id="al-lep-landing"><style>
+  #al-lep {
+    --al-bg: #111111;
+    --al-card: #1a1a1a;
+    --al-ink: #f0f0f0;
+    --al-muted: #9a9a9a;
+    --al-gold: #c9a84c;
+    --al-gold-2: #e0bc6a;
+    --al-line: #2a2a2a;
+    --al-red: #e0605a;
+
+    color: var(--al-ink);
+    background: var(--al-bg);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    overflow-x: hidden;
+    container-type: inline-size;
+  }
+
+  #al-lep, #al-lep * { box-sizing: border-box; }
+  #al-lep h1, #al-lep h2, #al-lep h3, #al-lep p { margin-top: 0; }
+  #al-lep a { color: inherit; text-decoration: none; }
+  #al-lep img { max-width: 100%; display: block; }
+
+  #al-lep .al-shell { width: min(1080px, calc(100% - 32px)); margin: 0 auto; }
+  #al-lep section { padding: 64px 0; border-top: 1px solid var(--al-line); }
+  #al-lep section:first-of-type { border-top: 0; }
+
+  #al-lep .al-kicker {
+    color: var(--al-gold);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  #al-lep h1 {
+    font-size: clamp(32px, 5.4cqw, 54px);
+    line-height: 1.08;
+    letter-spacing: -.02em;
+    margin-bottom: 18px;
+  }
+
+  #al-lep h2 {
+    font-size: clamp(26px, 3.6cqw, 38px);
+    line-height: 1.15;
+    letter-spacing: -.01em;
+    margin-bottom: 14px;
+  }
+
+  #al-lep h3 { font-size: 19px; margin-bottom: 8px; }
+  #al-lep .al-lead { font-size: 18px; color: var(--al-muted); max-width: 620px; }
+  #al-lep .al-center { text-align: center; }
+  #al-lep .al-center .al-lead { margin-left: auto; margin-right: auto; }
+
+  #al-lep .al-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 28px;
+    border-radius: 6px;
+    background: var(--al-gold);
+    color: #1a1a1a;
+    font-size: 15px;
+    font-weight: 800;
+    transition: background .2s;
+  }
+  #al-lep .al-btn:hover { background: var(--al-gold-2); }
+  #al-lep .al-btn-ghost { background: transparent; color: var(--al-gold-2); border: 1px solid var(--al-gold); }
+  #al-lep .al-btn-ghost:hover { background: rgba(201,168,76,.12); }
+
+  /* Hero */
+  #al-lep .al-hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center; padding-top: 48px; }
+  #al-lep .al-brand { color: var(--al-gold); font-weight: 800; letter-spacing: .12em; text-transform: uppercase; font-size: 15px; margin-bottom: 28px; }
+  #al-lep .al-brand span { color: var(--al-muted); font-weight: 400; letter-spacing: .04em; text-transform: none; margin-left: 8px; }
+  #al-lep .al-hero-img { max-width: 440px; justify-self: end; border-radius: 14px; overflow: hidden; border: 1px solid var(--al-line); background: #fff; }
+  #al-lep .al-specs { display: flex; gap: 28px; margin: 28px 0 32px; flex-wrap: wrap; }
+  #al-lep .al-spec b { display: block; font-size: 26px; color: var(--al-ink); line-height: 1.1; }
+  #al-lep .al-spec small { color: var(--al-muted); font-size: 13px; }
+  #al-lep .al-ship-line { margin-top: 14px; font-size: 14px; color: var(--al-muted); }
+  #al-lep .al-ship-line b { color: var(--al-ink); }
+
+  /* Списъци */
+  #al-lep .al-list { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 14px; }
+  #al-lep .al-list li { display: flex; gap: 12px; align-items: flex-start; }
+  #al-lep .al-list li::before { content: '✓'; color: var(--al-gold); font-weight: 800; flex: none; }
+  #al-lep .al-list.al-x li::before { content: '✕'; color: var(--al-red); }
+
+  /* Карти */
+  #al-lep .al-grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 36px; }
+  #al-lep .al-card { background: var(--al-card); border: 1px solid var(--al-line); border-radius: 14px; padding: 28px 24px; }
+  #al-lep .al-card p { color: var(--al-muted); margin-bottom: 0; font-size: 15px; }
+  #al-lep .al-step-n { color: var(--al-gold); font-size: 13px; font-weight: 800; letter-spacing: .08em; margin-bottom: 10px; }
+  #al-lep .al-card a.al-inline { color: var(--al-gold-2); font-weight: 700; }
+
+  /* Честно казано */
+  #al-lep .al-two { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 32px; }
+  #al-lep .al-note { border-left: 3px solid var(--al-gold); }
+
+  /* Пакети */
+  #al-lep .al-prices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 36px; align-items: stretch; }
+  #al-lep .al-price { position: relative; display: flex; flex-direction: column; text-align: center; background: var(--al-card); border: 1px solid var(--al-line); border-radius: 14px; padding: 32px 22px 26px; }
+  #al-lep .al-price.al-pop { border-color: var(--al-gold); }
+  #al-lep .al-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); padding: 3px 12px; border-radius: 20px; background: var(--al-gold); color: #1a1a1a; font-size: 12px; font-weight: 800; white-space: nowrap; }
+  #al-lep .al-price h3 { font-size: 18px; margin-bottom: 4px; }
+  #al-lep .al-price .al-for { color: var(--al-muted); font-size: 14px; margin-bottom: 18px; }
+  #al-lep .al-amount { font-size: 42px; font-weight: 800; line-height: 1; margin-bottom: 6px; }
+  #al-lep .al-per { color: var(--al-muted); font-size: 14px; }
+  #al-lep .al-save { color: var(--al-gold-2); font-size: 14px; font-weight: 700; min-height: 22px; margin: 6px 0 20px; }
+  #al-lep .al-price .al-btn { margin-top: auto; }
+  #al-lep .al-stock { text-align: center; margin-top: 24px; color: var(--al-muted); font-size: 15px; }
+  #al-lep .al-stock b { color: var(--al-ink); }
+  #al-lep .al-delivery { display: flex; justify-content: center; gap: 10px 26px; flex-wrap: wrap; margin-top: 14px; font-size: 14px; color: var(--al-muted); }
+
+  /* Кръстосана продажба */
+  #al-lep .al-cross { display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: center; background: var(--al-card); border: 1px solid var(--al-gold); border-radius: 14px; padding: 36px 32px; }
+  #al-lep .al-cross p { color: var(--al-muted); margin-bottom: 0; }
+
+  /* FAQ */
+  #al-lep .al-faq { max-width: 760px; margin: 32px auto 0; }
+  #al-lep details { border-bottom: 1px solid var(--al-line); padding: 18px 0; }
+  #al-lep summary { cursor: pointer; font-weight: 700; font-size: 17px; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+  #al-lep summary::-webkit-details-marker { display: none; }
+  #al-lep summary::after { content: '+'; color: var(--al-gold); font-size: 22px; line-height: 1; flex: none; }
+  #al-lep details[open] summary::after { content: '−'; }
+  #al-lep details p { color: var(--al-muted); margin: 12px 0 0; }
+
+  #al-lep .al-foot { text-align: center; padding: 48px 0 64px; color: var(--al-muted); font-size: 14px; }
+  #al-lep .al-foot a { color: var(--al-gold-2); font-weight: 700; font-size: 18px; }
+  #al-lep .al-foot .al-seller { font-size: 13px; max-width: 560px; margin: 24px auto 8px; }
+  #al-lep .al-foot .al-seller a { font-size: 13px; font-weight: 400; }
+
+  @container (max-width: 860px) {
+    #al-lep .al-hero, #al-lep .al-two, #al-lep .al-cross { grid-template-columns: 1fr; gap: 28px; }
+    #al-lep .al-hero-img { max-width: 300px; justify-self: start; }
+    #al-lep .al-grid3, #al-lep .al-prices { grid-template-columns: 1fr; gap: 28px; }
+    #al-lep section { padding: 48px 0; }
+    #al-lep .al-cross { padding: 28px 22px; }
+  }
+</style>
+
+<div id="al-lep">
+
+  <!-- 1. Hero -->
+  <section>
+    <div class="al-shell al-hero">
+      <div>
+        <div class="al-brand">Avtolights <span>Казанлък · ремонтираме фарове от 2017 г.</span></div>
+        <div class="al-kicker">Бутилова лента за фарове</div>
+        <h1>Битумно лепило за фарове</h1>
+        <p class="al-lead">Ролка 9.5 мм × 4.5 м за затваряне на фар след смяна на стъкло, ремонт или монтаж на лупи. Същата лента, с която затваряме фаровете в нашия сервиз.</p>
+        <div class="al-specs">
+          <div class="al-spec"><b>9.5 мм</b><small>дебелина</small></div>
+          <div class="al-spec"><b>4.5 м</b><small>дължина</small></div>
+          <div class="al-spec"><b>~4</b><small>фара на ролка</small></div>
+        </div>
+        <a class="al-btn" href="#al-paketi">Виж цените →</a>
+        <p class="al-ship-line">Поръчай до <b>14:00</b> и изпращаме <b>същия ден</b>. Плащаш при доставка.</p>
+      </div>
+      <div class="al-hero-img">
+        <img src="https://raw.githubusercontent.com/deyanivanovbg-ship-it/avtolights-product-images/main/site/bitumno-lepilo-kutia.webp" alt="Кутия бутилова лента за фарове 9.5 мм × 4.5 м" width="1257" height="1257" loading="eager">
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Проблем -->
+  <section>
+    <div class="al-shell">
+      <div class="al-kicker">Отвори ли фара</div>
+      <h2>Отвори ли фара, трябва да го затвориш правилно.</h2>
+      <p class="al-lead">Стъклото и корпусът се държат заедно от лентата в канала. Ако тя не е положена докрай, вътре влиза вода и прах.</p>
+      <ul class="al-list al-x">
+        <li>Силиконът втвърдява и при следващо отваряне трябва да се изчегъртва от канала.</li>
+        <li>Стара, използвана лента вече е с пролуки и не притиска равномерно.</li>
+        <li>Влага във фара значи замъглено стъкло и повреден рефлектор.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3. Как се поставя -->
+  <section>
+    <div class="al-shell">
+      <div class="al-kicker">Как се поставя</div>
+      <h2>Три стъпки, без специални инструменти.</h2>
+      <div class="al-grid3">
+        <div class="al-card">
+          <div class="al-step-n">СТЪПКА 1</div>
+          <h3>Почисти канала</h3>
+          <p>Махни старото лепило от канала на корпуса. Лентата залепва най-добре на чиста и суха повърхност.</p>
+        </div>
+        <div class="al-card">
+          <div class="al-step-n">СТЪПКА 2</div>
+          <h3>Положи лентата</h3>
+          <p>Натисни я с пръсти в канала по цялата обиколка, без прекъсвания.</p>
+        </div>
+        <div class="al-card">
+          <div class="al-step-n">СТЪПКА 3</div>
+          <h3>Загрей и притисни</h3>
+          <p>Загрей фара с пистолет за горещ въздух или кратко във фурна. Лентата омеква и стъклото влиза равно в канала.</p>
+        </div>
+      </div>
+      <p class="al-stock" style="margin-top:28px">След доставката ти изпращаме <b>видео ръководство</b> стъпка по стъпка, заснето в нашия сервиз.</p>
+    </div>
+  </section>
+
+  <!-- 4. Честно казано -->
+  <section>
+    <div class="al-shell">
+      <div class="al-kicker">Честно казано</div>
+      <h2>За кои фарове е и за кои не.</h2>
+      <div class="al-two">
+        <div class="al-card">
+          <h3>Подходяща е</h3>
+          <ul class="al-list">
+            <li>За фарове, затворени с бутил (меко, лепкаво лепило, което се отваря със загряване).</li>
+            <li>При смяна на стъкло, ремонт на рефлектор, монтаж на лупи или боядисване.</li>
+            <li>Когато фарът вече е отварян и старото лепило е изчерпано.</li>
+          </ul>
+        </div>
+        <div class="al-card al-note">
+          <h3>Важно да знаеш</h3>
+          <ul class="al-list al-x">
+            <li>Някои фарове са залепени фабрично със силикон или твърдо лепило. При тях каналът трябва да се почисти напълно, преди да се сложи лентата.</li>
+            <li>Всеки фар има вентилационни отвори. Лек конденз при рязка смяна на температурата е нормален и не идва от лентата.</li>
+            <li>Не си сигурен за твоя фар? Пиши ни марката и модела във Viber и ще ти кажем.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Пакети -->
+  <section id="al-paketi">
+    <div class="al-shell al-center">
+      <div class="al-kicker">Цени</div>
+      <h2>Избери пакет</h2>
+      <p class="al-lead">Една ролка стига за около 4 фара, тоест за 2 коли. За сервизи и за повече коли е по-изгодно на пакет.</p>
+      <div class="al-prices">
+        <div class="al-price">
+          <h3>1 ролка</h3>
+          <div class="al-for">за 2 коли (около 4 фара)</div>
+          <div class="al-amount">€15</div>
+          <div class="al-per">€15.00 / ролка</div>
+          <div class="al-save"></div>
+          <a class="al-btn" href="/porachka-1">Поръчай</a>
+        </div>
+        <div class="al-price al-pop">
+          <span class="al-badge">Най-изгодно за повече коли</span>
+          <h3>3 ролки</h3>
+          <div class="al-for">за 6 коли (около 12 фара)</div>
+          <div class="al-amount">€38</div>
+          <div class="al-per">€12.67 / ролка</div>
+          <div class="al-save">Спестяваш €7</div>
+          <a class="al-btn" href="/porachka-3">Поръчай</a>
+        </div>
+        <div class="al-price">
+          <span class="al-badge">За сервизи</span>
+          <h3>5 ролки</h3>
+          <div class="al-for">за сервиз: 10 коли (около 20 фара)</div>
+          <div class="al-amount">€59</div>
+          <div class="al-per">€11.80 / ролка</div>
+          <div class="al-save">Спестяваш €16</div>
+          <a class="al-btn" href="/porachka-5">Поръчай</a>
+        </div>
+      </div>
+      <p class="al-stock">Първа партида: <b>80 ролки</b> на склад. Поръчай до <b>14:00</b> и изпращаме същия ден.</p>
+      <div class="al-delivery">
+        <span>Спиди офис €3.51</span>
+        <span>Спиди адрес €4.51</span>
+        <span>Еконт офис €4.11</span>
+        <span>Еконт адрес €5.27</span>
+        <span>Наложен платеж</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Кръстосана продажба: стъкла -->
+  <section>
+    <div class="al-shell">
+      <div class="al-cross">
+        <div>
+          <div class="al-kicker">Сменяш стъклото на фара?</div>
+          <h2 style="margin-bottom:10px">Имаме нови стъкла за 120 модела.</h2>
+          <p>Mercedes, BMW, Audi, VW, Porsche, Skoda и Tesla. Ляво, дясно или комплект. С наложен платеж.</p>
+        </div>
+        <a class="al-btn al-btn-ghost" href="https://avtolights.com/store">Намери стъкло за колата →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. FAQ -->
+  <section>
+    <div class="al-shell">
+      <div class="al-center">
+        <div class="al-kicker">Въпроси</div>
+        <h2>Въпроси и отговори</h2>
+      </div>
+      <div class="al-faq">
+        <details>
+          <summary>Битумно или бутилово е лепилото?</summary>
+          <p>В България го наричат "битумно лепило", но материалът е бутил. Това е мека, лепкава лента, която не изсъхва и при загряване омеква, затова фарът може да се отвори отново.</p>
+        </details>
+        <details>
+          <summary>Колко фара стига една ролка?</summary>
+          <p>Около 4 фара със стандартен размер, тоест 2 коли (ляв + десен). При големи фарове стига за по-малко. Ако работиш по повече коли, вземи пакета с 3 ролки.</p>
+        </details>
+        <details>
+          <summary>Как се загрява фарът?</summary>
+          <p>С пистолет за горещ въздух по канала или кратко във фурна, докато лентата омекне. Не прегрявай пластмасата. Във видео ръководството, което ти изпращаме след доставката, показваме целия процес.</p>
+        </details>
+        <details>
+          <summary>Става ли за моя фар?</summary>
+          <p>Става за фарове, затворени с бутил. Ако твоят е залепен фабрично със силикон или твърдо лепило, каналът трябва да се почисти напълно първо. Пиши ни марката и модела във Viber на 0877 104 341 и ще ти кажем.</p>
+        </details>
+        <details>
+          <summary>Ще залепи ли върху остатъци от старото лепило?</summary>
+          <p>По-добре е каналът да е почистен. Лентата залепва най-добре на чиста, суха повърхност без масло и прах.</p>
+        </details>
+        <details>
+          <summary>Кога ще получа поръчката?</summary>
+          <p>Поръчка до 14:00 изпращаме същия ден със Спиди или Еконт. Плащаш при доставка.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <div class="al-shell al-foot">
+    <a class="al-btn" href="#al-paketi" style="margin-bottom:28px">Поръчай лепило →</a>
+    <p>Въпроси? Пиши ни във Viber или се обади:<br><a href="tel:+359877104341">0877 104 341</a></p>
+    <p class="al-seller">Продавач: ФЕЦ ИВАНОВИ ЕООД, ЕИК 206976981, гр. Казанлък, бул. Розова долина 7, ет. 1, <a href="mailto:deyan.ivanov.bg@gmail.com">deyan.ivanov.bg@gmail.com</a></p>
+    <p>© 2026 Avtolights · Казанлък</p>
+  </div>
+
+</div>
+</template>
+<template id="al-lep-thanks"><style>
+  #al-thx {
+    --al-bg: #111111;
+    --al-card: #1a1a1a;
+    --al-ink: #f0f0f0;
+    --al-muted: #9a9a9a;
+    --al-gold: #c9a84c;
+    --al-gold-2: #e0bc6a;
+    --al-line: #2a2a2a;
+
+    color: var(--al-ink);
+    background: var(--al-bg);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  #al-thx, #al-thx * { box-sizing: border-box; }
+  #al-thx h1, #al-thx h2, #al-thx p { margin-top: 0; }
+  #al-thx a { color: inherit; text-decoration: none; }
+  #al-thx .al-shell { width: min(680px, calc(100% - 32px)); margin: 0 auto; padding: 56px 0 64px; text-align: center; }
+  #al-thx .al-brand { color: var(--al-gold); font-weight: 800; letter-spacing: .12em; text-transform: uppercase; font-size: 15px; margin-bottom: 36px; }
+  #al-thx .al-check { width: 64px; height: 64px; border-radius: 50%; background: var(--al-gold); color: #1a1a1a; font-size: 34px; font-weight: 800; line-height: 64px; margin: 0 auto 20px; }
+  #al-thx h1 { font-size: clamp(28px, 6vw, 42px); line-height: 1.15; margin-bottom: 12px; }
+  #al-thx .al-lead { color: var(--al-muted); font-size: 18px; margin-bottom: 36px; }
+  #al-thx .al-steps { text-align: left; background: var(--al-card); border: 1px solid var(--al-line); border-radius: 14px; padding: 8px 24px; margin-bottom: 28px; }
+  #al-thx .al-step { display: flex; gap: 16px; padding: 18px 0; border-top: 1px solid var(--al-line); }
+  #al-thx .al-step:first-child { border-top: 0; }
+  #al-thx .al-n { flex: none; width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--al-gold); color: var(--al-gold); font-weight: 800; font-size: 14px; line-height: 26px; text-align: center; }
+  #al-thx .al-step b { display: block; margin-bottom: 2px; }
+  #al-thx .al-step span { color: var(--al-muted); font-size: 15px; }
+  #al-thx .al-cross { background: var(--al-card); border: 1px solid var(--al-gold); border-radius: 14px; padding: 24px; margin-bottom: 32px; }
+  #al-thx .al-cross p { color: var(--al-muted); margin-bottom: 16px; }
+  #al-thx .al-btn { display: inline-flex; align-items: center; justify-content: center; padding: 14px 24px; border-radius: 6px; border: 1px solid var(--al-gold); color: var(--al-gold-2); font-weight: 800; font-size: 15px; }
+  #al-thx .al-btn:hover { background: rgba(201,168,76,.12); }
+  #al-thx .al-contact { color: var(--al-muted); font-size: 14px; }
+  #al-thx .al-contact a { color: var(--al-gold-2); font-weight: 700; font-size: 18px; }
+  #al-thx .al-seller { color: var(--al-muted); font-size: 12px; margin-top: 28px; }
+</style>
+
+<div id="al-thx">
+  <div class="al-shell">
+    <div class="al-brand">Avtolights</div>
+    <div class="al-check">✓</div>
+    <h1>Поръчката е приета</h1>
+    <p class="al-lead">Благодарим ти! Ето какво следва.</p>
+
+    <div class="al-steps">
+      <div class="al-step">
+        <div class="al-n">1</div>
+        <div><b>Изпращаме пратката</b><span>Поръчка до 14:00 тръгва същия ден със Спиди или Еконт. Куриерът ще се свърже с теб за доставката.</span></div>
+      </div>
+      <div class="al-step">
+        <div class="al-n">2</div>
+        <div><b>Плащаш при получаване</b><span>Наложен платеж, на куриера при получаване.</span></div>
+      </div>
+      <div class="al-step">
+        <div class="al-n">3</div>
+        <div><b>Получаваш видео ръководство</b><span>След доставката ти пращаме на имейла видео как се поставя лентата, стъпка по стъпка. Провери и папката "Промоции" или "Спам".</span></div>
+      </div>
+    </div>
+
+    <div class="al-cross">
+      <p>Сменяш и стъклото на фара? Имаме нови стъкла за 120 модела: Mercedes, BMW, Audi, VW, Porsche, Skoda и Tesla.</p>
+      <a class="al-btn" href="https://avtolights.com/store">Намери стъкло за колата →</a>
+    </div>
+
+    <p class="al-contact">Въпрос за поръчката? Пиши ни във Viber или се обади:<br><a href="tel:+359877104341">0877 104 341</a></p>
+    <p class="al-seller">Продавач: ФЕЦ ИВАНОВИ ЕООД, ЕИК 206976981, гр. Казанлък, бул. Розова долина 7, ет. 1</p>
+  </div>
+</div>
+</template>
+<script>
+(function () {
+  // адрес → коя страница; всичко останало (чекаутите) не се пипа
+  var PAGES = { '': 'al-lep-landing', 'landing-page': 'al-lep-landing', 'blagodarim': 'al-lep-thanks' };
+  function run() {
+    var path = location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
+    var id = PAGES[path];
+    if (!id || document.getElementById(id + '-live')) return;
+    var box = document.createElement('div');
+    box.id = id + '-live';
+    box.appendChild(document.getElementById(id).content.cloneNode(true));
+    var host = document.querySelector('.content-wrapper .content') || document.querySelector('#website') || document.body;
+    host.insertBefore(box, host.firstChild);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
+  else run();
+})();
+</script>

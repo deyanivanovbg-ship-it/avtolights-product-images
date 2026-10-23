@@ -4,10 +4,11 @@
   var PAGES = { '': 'al-lep-landing', 'landing-page': 'al-lep-landing', 'blagodarim': 'al-lep-thanks', 'blagodarim-za-por-chkata': 'al-lep-thanks' };
   // чекаутите идват от шаблон на CB: бутон "SUBSCRIBE" и стокова снимка най-горе
   function fixCheckout() {
-    [].forEach.call(document.querySelectorAll('button, a, input[type=submit], span'), function (el) {
-      if (el.children.length === 0 && /^\s*SUBSCRIBE\s*$/i.test(el.textContent)) el.textContent = 'Завърши поръчката';
-      if (el.tagName === 'INPUT' && /SUBSCRIBE/i.test(el.value)) el.value = 'Завърши поръчката';
-    });
+    // бутонът е <a> с иконка вътре, затова се сменя само текстовият възел
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null), node;
+    while ((node = walker.nextNode())) {
+      if (/^\s*SUBSCRIBE\s*$/i.test(node.nodeValue)) node.nodeValue = 'Завърши поръчката';
+    }
     [].forEach.call(document.querySelectorAll('[id^=container-widget]'), function (el) {
       if (/unsplash/.test(getComputedStyle(el).backgroundImage)) el.style.backgroundImage = 'none';
     });
@@ -15,6 +16,7 @@
   function run() {
     fixCheckout();
     setTimeout(fixCheckout, 1500);
+    setTimeout(fixCheckout, 4000);
     var id = PAGES[location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase()];
     if (!id || document.getElementById(id + '-live')) return;
     var box = document.createElement('div');

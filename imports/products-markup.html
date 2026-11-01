@@ -53,7 +53,10 @@
 
 
 <style>
-#al-info{max-width:900px;margin:8px auto 24px;padding:0 16px;font-family:Arial,Helvetica,sans-serif;color:#1c1b18;line-height:1.5}
+#al-info-top{max-width:900px;margin:4px auto 12px;padding:0 16px;font-family:Arial,Helvetica,sans-serif;color:#1c1b18;line-height:1.45;text-align:center;font-size:14px}
+#al-info-top p{margin:4px 0}
+#al-info-top .al-strip{color:#5c5440}
+#al-info{max-width:900px;margin:24px auto 24px;padding:0 16px;font-family:Arial,Helvetica,sans-serif;color:#1c1b18;line-height:1.5}
 #al-info h2{font-size:20px;margin:18px 0 8px;color:#111}
 #al-info .al-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px 24px}
 #al-info .al-box{background:#faf6ea;border:1px solid #eadfbf;border-radius:8px;padding:12px 16px}
@@ -64,8 +67,12 @@
 #al-info details{border-bottom:1px solid #eee;padding:8px 0}
 #al-info summary{cursor:pointer;font-weight:700}
 </style>
+<section id="al-info-top">
+  <p><strong>Нови стъкла (капаци) за фарове</strong> за шофьори в цяла България, чийто фар е здрав, но стъклото е пукнато, пожълтяло или матово. Сменяш само стъклото и връщаш вида и светлината на фара за малка част от цената на нов фар.</p>
+  <p class="al-strip">Наложен платеж · Еконт 4,50 € · Спиди 4,00 € · до адрес 5,00 € · до 3 работни дни · 14 дни право на връщане · <a href="#al-info">как се поръчва</a></p>
+</section>
 <section id="al-info">
-  <p><strong>Нови стъкла (капаци) за фарове</strong> за шофьори в цяла България, чийто фар е здрав, но стъклото е пукнато, пожълтяло или матово. Сменяш само стъклото и връщаш вида и светлината на фара за малка част от цената на нов фар. Avtolights, Казанлък, работи с фарове от 2017 г.</p>
+  <p>Avtolights, Казанлък, работи с фарове от 2017 г.</p>
   <div class="al-cols">
     <div class="al-box">
       <h2>Как се поръчва</h2>
@@ -111,11 +118,13 @@
 {"@type":"OfferCatalog","name":"Стъкла за фарове Avtolights","url":"https://avtolights.com/store","numberOfItems":120,"itemListElement":[{"@type":"Offer","priceCurrency":"EUR","priceSpecification":{"@type":"PriceSpecification","minPrice":19.9,"maxPrice":187.9,"priceCurrency":"EUR"},"availability":"https://schema.org/InStock","seller":{"@type":"AutomotiveBusiness","name":"Avtolights","telephone":"+359877104341","address":{"@type":"PostalAddress","streetAddress":"бул. „Розова долина“ № 7, ет. -1","addressLocality":"Казанлък","postalCode":"6100","addressCountry":"BG"}}}]}]}</script>
 <script>
 (function () {
-  // слагаме блока под търсачката, над списъка с модели
+  // кратката лента - под търсачката; подробностите - под списъка с модели, за да не бутат магазина надолу
   function place() {
-    var info = document.getElementById('al-info');
-    var anchor = document.getElementById('al-search') || document.querySelector('.products-list');
-    if (info && anchor && anchor.parentElement && info.previousElementSibling !== anchor) anchor.parentElement.insertBefore(info, anchor.nextSibling);
+    var top = document.getElementById('al-info-top'), info = document.getElementById('al-info');
+    var search = document.getElementById('al-search'), grid = document.querySelector('.products-list');
+    if (top && search && search.parentElement && top.previousElementSibling !== search) search.parentElement.insertBefore(top, search.nextSibling);
+    var box = grid && grid.parentElement;
+    if (info && box && box.parentElement && info.previousElementSibling !== box) box.parentElement.insertBefore(info, box.nextSibling);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { setTimeout(place, 50); });
   else setTimeout(place, 50);

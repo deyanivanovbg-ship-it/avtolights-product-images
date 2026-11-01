@@ -123,7 +123,7 @@
     var top = document.getElementById('al-info-top'), info = document.getElementById('al-info');
     var search = document.getElementById('al-search'), grid = document.querySelector('.products-list');
     if (top && search && search.parentElement && top.previousElementSibling !== search) search.parentElement.insertBefore(top, search.nextSibling);
-    var box = grid && grid.parentElement;
+    var box = grid && (grid.closest('.product-list-wrapper') || grid.parentElement);
     if (info && box && box.parentElement && info.previousElementSibling !== box) box.parentElement.insertBefore(info, box.nextSibling);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { setTimeout(place, 50); });

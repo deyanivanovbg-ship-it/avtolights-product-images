@@ -149,7 +149,7 @@
     var page = (path.match(/\/page\/(\d+)$/) || [])[1];
     path = path.replace(/\/page\/\d+$/, '');
     var c = path.match(/^\/store\/category\/([^/]+)(?:\/sub\/([^/]+))?$/);
-    var what = 'Mercedes, BMW, Audi, VW, Porsche';
+    var what = 'за над 400 модела коли'; // 10.11.2026: 28 марки, не само немските
     if (c) {
       what = c[1];
       if (c[2]) {
@@ -157,7 +157,7 @@
         what += ' ' + (link && link.textContent.trim() ? link.textContent.trim() : c[2].replace(/-/g, ' '));
       }
     } else if (path !== '/store') return;
-    var title = 'Стъкла за фарове ' + what + (page ? ' - страница ' + page : '') + ' | Avtolights';
+    var title = 'Стъкла за фарове ' + (c ? what : 'за над 400 модела коли - ляво, дясно, комплект') + (page ? ' - страница ' + page : '') + ' | Avtolights';
     var desc = c
       ? 'Нови стъкла (капаци) за фарове ' + what + ': ляво, дясно или комплект. Наложен платеж, доставка с Еконт и Спиди. Помощ за избора във Viber.'
       : 'Нови стъкла (капаци) за фарове на над 400 модела коли: ляво, дясно или комплект. Наложен платеж, доставка с Еконт и Спиди. Помощ за избора във Viber.';

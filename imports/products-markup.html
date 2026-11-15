@@ -39,11 +39,20 @@
     if (!q.length) { res.style.display = 'none'; return; }
     // всяка дума от търсенето трябва да е част от една дума в името или в синонимите - иначе "4f" намира "W204 Facelift";
     // думата се пробва и на латиница ("ф10" = f10, "в212" = w212)
+    var wordsOf = function (d) { return (d[1] + ' ' + (d[4] ? d[4].split('.').map(function (i) { return K[i]; }).join(' ') : '')).toLowerCase().split(/[\s\/(),]+/).map(norm); };
     var hits = D.filter(function (d) {
-      var words = (d[1] + ' ' + (d[4] ? d[4].split('.').map(function (i) { return K[i]; }).join(' ') : '')).toLowerCase().split(/[\s\/(),]+/).map(norm);
+      var words = wordsOf(d);
       // еднобуквена дума ("е класа") - само в началото на дума, иначе "е" намира всяко име
       return q.every(function (w) { return variants(w).some(function (v) { return words.some(function (t) { var i = t.indexOf(v); return v.length > 1 ? i !== -1 : i === 0; }); }); });
-    }).slice(0, 20);
+    });
+    // подредба (15.11.2026): първо моделите, при които две съседни думи заедно са начало на дума ("s класа" = s-klasa -> S-Class, не E-Class)
+    if (q.length > 1) {
+      var score = function (d) { var words = wordsOf(d), s = 0;
+        for (var j = 0; j + 1 < q.length; j++) if (variants(q[j] + q[j + 1]).some(function (v) { return words.some(function (t) { return t.indexOf(v) === 0; }); })) s++;
+        return s; };
+      hits = hits.map(function (d, i) { return [score(d), i, d]; }).sort(function (a, b) { return b[0] - a[0] || a[1] - b[1]; }).map(function (x) { return x[2]; });
+    }
+    hits = hits.slice(0, 20);
     res.innerHTML = hits.length ? hits.map(function (d) {
       return '<a href="/store/staklo-far-' + d[0] + '"><img loading="lazy" src="' + IMG + (d[3] || 'nov/' + d[0] + '/1.jpg') + '" alt=""><span>' + d[1] + '</span><span class="al-p">от ' + d[2] + ' €</span></a>';
     }).join('') : '<div class="al-none">Няма такъв модел в магазина. Пишете ни във Viber на 0877 104 341 марката, модела и годината - ще проверим дали можем да го осигурим.</div>';

@@ -11,9 +11,14 @@
 (function(){
 var led=location.pathname.indexOf('/store/category/LED-kruski')===0;
 var t=document.querySelector('#al-tabs a[data-t="'+(led?'l':'g')+'"]');if(t)t.className='on';
-if(!led)return;
-document.getElementById('al-led-note').style.display='block';
-function hide(){['al-search','al-info-top','al-info'].forEach(function(id){var e=document.getElementById(id);if(e)e.style.display='none';});}
-hide();document.addEventListener('DOMContentLoaded',hide);
+if(led)document.getElementById('al-led-note').style.display='block';
+function go(){
+var tabs=document.getElementById('al-tabs'),note=document.getElementById('al-led-note');
+var s=document.getElementById('al-search'),g=document.querySelector('.products-list');
+if(led)['al-search','al-info-top','al-info'].forEach(function(id){var e=document.getElementById(id);if(e)e.style.display='none';});
+var a=(!led&&s&&s.parentElement)?s:g;
+if(a&&a.parentElement&&tabs.nextElementSibling!==a&&note.nextElementSibling!==a){a.parentElement.insertBefore(tabs,a);a.parentElement.insertBefore(note,a);}
+}
+document.addEventListener('DOMContentLoaded',go);window.addEventListener('load',go);setTimeout(go,800);setTimeout(go,2000);
 })();
 </script>

@@ -1,4 +1,27 @@
 <style>
+#al-tabs{display:flex;gap:10px;max-width:640px;margin:16px auto 0;padding:0 16px;font-family:Arial,sans-serif}
+#al-tabs a{flex:1;text-align:center;padding:12px 8px;border:2px solid #c9a84c;border-radius:8px;color:#111;font-weight:700;font-size:15px;text-decoration:none;background:#fff}
+#al-tabs a.on{background:#c9a84c}
+#al-ln{max-width:640px;margin:12px auto 0;padding:0 16px;font:15px/1.5 Arial,sans-serif;color:#333;text-align:center;display:none}
+#al-ln a{color:#9a7a20;font-weight:700}
+</style>
+<div id="al-tabs"><a href="/store" data-t="g">Стъкла за фарове</a><a href="/store/category/LED-kruski" data-t="l">LED крушки</a></div>
+<p id="al-ln">Цената е за комплект от 2 броя, 2 години гаранция. Не знаеш цокъла? <a href="/krushki">Виж тук</a> или пиши в <a href="https://m.me/110858323961528">Messenger</a>.</p>
+<script>
+(function(){
+var L=location.pathname.indexOf('/store/category/LED-kruski')===0,d=document,$=function(i){return d.getElementById(i)};
+d.querySelector('#al-tabs a[data-t="'+(L?'l':'g')+'"]').className='on';
+function go(){
+var t=$('al-tabs'),n=$('al-ln'),s=$('al-search'),a=(!L&&s)?s:d.querySelector('.products-list');
+if(L){n.style.display='block';['al-search','al-info-top','al-info'].forEach(function(i){if($(i))$(i).style.display='none'});
+var T='LED крушки за фарове H1, H4, H7, H11, HB3, HB4, H15 и D1S-D5S | Avtolights',D='LED крушки за замяна на халогенни и ксенонови крушки. Комплект от 2 броя, от 75 €, 2 години гаранция, наложен платеж.';
+d.title=T;[['name','description',D],['property','og:title',T],['property','og:description',D]].forEach(function(m){var e=d.querySelector('meta['+m[0]+'="'+m[1]+'"]');if(e)e.setAttribute('content',m[2])})}
+if(a&&a.parentElement&&n.nextElementSibling!==a){a.parentElement.insertBefore(t,a);a.parentElement.insertBefore(n,a)}
+}
+d.addEventListener('DOMContentLoaded',go);addEventListener('load',go);setTimeout(go,800);setTimeout(go,2000);
+})();
+</script>
+<style>
 #al-search{max-width:640px;margin:16px auto 8px;padding:0 16px;position:relative;font-family:Arial,Helvetica,sans-serif}
 #al-search input{width:100%;box-sizing:border-box;padding:14px 16px;font-size:16px;border:2px solid #c9a84c;border-radius:8px;outline:none}
 #al-search .al-res{position:absolute;left:16px;right:16px;top:100%;background:#fff;border:1px solid #ddd;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.15);max-height:420px;overflow:auto;z-index:50;display:none}
@@ -129,7 +152,6 @@ document.addEventListener('click', function (e) { if (!box.contains(e.target)) r
 {"@type":"OfferCatalog","name":"Стъкла за фарове Avtolights","url":"https://avtolights.com/store","numberOfItems":417,"itemListElement":[{"@type":"Offer","priceCurrency":"EUR","priceSpecification":{"@type":"PriceSpecification","minPrice":19.9,"maxPrice":234.9,"priceCurrency":"EUR"},"availability":"https://schema.org/InStock","seller":{"@type":"AutomotiveBusiness","name":"Avtolights","telephone":"+359877104341","address":{"@type":"PostalAddress","streetAddress":"бул. „Розова долина“ № 7, ет. -1","addressLocality":"Казанлък","postalCode":"6100","addressCountry":"BG"}}}]}]}</script>
 <script>
 (function () {
-  // кратката лента - под търсачката; подробностите - под списъка с модели, за да не бутат магазина надолу
   function place() {
     var top = document.getElementById('al-info-top'), info = document.getElementById('al-info');
     var search = document.getElementById('al-search'), grid = document.querySelector('.products-list');
@@ -142,8 +164,6 @@ document.addEventListener('click', function (e) { if (!box.contains(e.target)) r
 })();
 </script>
 <script>
-// Заглавие и описание за Google на магазина и категориите. CB не позволява SEO на системната
-// страница (system/products дава "Invalid or reserved URL"), затова се задават оттук.
 (function () {
   function meta(attr, key, value) {
     var m = document.querySelector('meta[' + attr + '="' + key + '"]');
@@ -155,7 +175,7 @@ document.addEventListener('click', function (e) { if (!box.contains(e.target)) r
     var page = (path.match(/\/page\/(\d+)$/) || [])[1];
     path = path.replace(/\/page\/\d+$/, '');
     var c = path.match(/^\/store\/category\/([^/]+)(?:\/sub\/([^/]+))?$/);
-    var what = 'за над 400 модела коли'; // 10.11.2026: 28 марки, не само немските
+    var what = 'за над 400 модела коли';
     if (c) {
       what = c[1];
       if (c[2]) {

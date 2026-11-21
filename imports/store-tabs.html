@@ -1,24 +1,23 @@
 <style>
-#al-tabs{display:flex;gap:10px;max-width:640px;margin:16px auto 0;padding:0 16px;font-family:Arial,Helvetica,sans-serif}
+#al-tabs{display:flex;gap:10px;max-width:640px;margin:16px auto 0;padding:0 16px;font-family:Arial,sans-serif}
 #al-tabs a{flex:1;text-align:center;padding:12px 8px;border:2px solid #c9a84c;border-radius:8px;color:#111;font-weight:700;font-size:15px;text-decoration:none;background:#fff}
 #al-tabs a.on{background:#c9a84c}
-#al-led-note{max-width:640px;margin:12px auto 0;padding:0 16px;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.5;color:#333;text-align:center;display:none}
-#al-led-note a{color:#9a7a20;font-weight:700}
+#al-ln{max-width:640px;margin:12px auto 0;padding:0 16px;font:15px/1.5 Arial,sans-serif;color:#333;text-align:center;display:none}
+#al-ln a{color:#9a7a20;font-weight:700}
 </style>
 <div id="al-tabs"><a href="/store" data-t="g">Стъкла за фарове</a><a href="/store/category/LED-kruski" data-t="l">LED крушки</a></div>
-<p id="al-led-note">LED крушки за фарове: цената е за комплект от 2 броя, 2 години гаранция. Не знаеш какъв цокъл ти трябва? <a href="/krushki">Виж тук</a> или ни пиши в <a href="https://m.me/110858323961528">Messenger</a>.</p>
+<p id="al-ln">Цената е за комплект от 2 броя, 2 години гаранция. Не знаеш цокъла? <a href="/krushki">Виж тук</a> или пиши в <a href="https://m.me/110858323961528">Messenger</a>.</p>
 <script>
 (function(){
-var led=location.pathname.indexOf('/store/category/LED-kruski')===0;
-var t=document.querySelector('#al-tabs a[data-t="'+(led?'l':'g')+'"]');if(t)t.className='on';
-if(led)document.getElementById('al-led-note').style.display='block';
+var L=location.pathname.indexOf('/store/category/LED-kruski')===0,d=document,$=function(i){return d.getElementById(i)};
+d.querySelector('#al-tabs a[data-t="'+(L?'l':'g')+'"]').className='on';
 function go(){
-var tabs=document.getElementById('al-tabs'),note=document.getElementById('al-led-note');
-var s=document.getElementById('al-search'),g=document.querySelector('.products-list');
-if(led)['al-search','al-info-top','al-info'].forEach(function(id){var e=document.getElementById(id);if(e)e.style.display='none';});
-var a=(!led&&s&&s.parentElement)?s:g;
-if(a&&a.parentElement&&tabs.nextElementSibling!==a&&note.nextElementSibling!==a){a.parentElement.insertBefore(tabs,a);a.parentElement.insertBefore(note,a);}
+var t=$('al-tabs'),n=$('al-ln'),s=$('al-search'),a=(!L&&s)?s:d.querySelector('.products-list');
+if(L){n.style.display='block';['al-search','al-info-top','al-info'].forEach(function(i){if($(i))$(i).style.display='none'});
+var T='LED крушки за фарове H1, H4, H7, H11, HB3, HB4, H15 и D1S-D5S | Avtolights',D='LED крушки за замяна на халогенни и ксенонови крушки. Комплект от 2 броя, от 75 €, 2 години гаранция, наложен платеж.';
+d.title=T;[['name','description',D],['property','og:title',T],['property','og:description',D]].forEach(function(m){var e=d.querySelector('meta['+m[0]+'="'+m[1]+'"]');if(e)e.setAttribute('content',m[2])})}
+if(a&&a.parentElement&&n.nextElementSibling!==a){a.parentElement.insertBefore(t,a);a.parentElement.insertBefore(n,a)}
 }
-document.addEventListener('DOMContentLoaded',go);window.addEventListener('load',go);setTimeout(go,800);setTimeout(go,2000);
+d.addEventListener('DOMContentLoaded',go);addEventListener('load',go);setTimeout(go,800);setTimeout(go,2000);
 })();
 </script>
